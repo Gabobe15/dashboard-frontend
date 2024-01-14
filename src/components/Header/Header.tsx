@@ -15,10 +15,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useMediaQuery } from "@mui/material";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 
-function Header() {
+const pages = ["Products", "Pricing", "Blog"];
+
+export type HeaderProps = {
+  ColorModeContext: React.Context<{ toggleColorMode: () => void }>;
+};
+
+const Header = (props: HeaderProps) => {
+  const { ColorModeContext } = props;
   const { data: session } = useSession();
   const userProfile = session?.user?.image as string;
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -43,6 +50,8 @@ function Header() {
     setAnchorElUser(null);
   };
 
+  const tabletCheck = useMediaQuery("(min-width: 1080px)");
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -52,7 +61,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -63,7 +72,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            DataSoft
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -107,7 +116,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -119,7 +128,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            DataSoft
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -133,11 +142,19 @@ function Header() {
             ))}
           </Box>
 
+          {tabletCheck && (
+            <Box sx={{ paddingRight: 5 }}>
+              <Typography>Signed in as {session?.user?.email}</Typography>
+            </Box>
+          )}
+
+          <ThemeToggleButton ColorModeContext={ColorModeContext} />
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Box sx={{ paddingRight: 6 }}>
-                  <Typography>Signed in as {session?.user?.email}</Typography>
+                  {/* <Typography>Signed in as {session?.user?.email}</Typography> */}
                 </Box>
                 <Avatar alt={session?.user?.name as string} src={userProfile} />
               </IconButton>
@@ -169,5 +186,5 @@ function Header() {
       </Container>
     </AppBar>
   );
-}
+};
 export default Header;
