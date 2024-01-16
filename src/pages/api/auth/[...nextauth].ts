@@ -1,5 +1,5 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -7,15 +7,19 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
       authorization: {
-        params:{
-            prompt: 'consent',
-            access_type: 'offline',
-            response_type: 'code'
-        }
-      }
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
     }),
     // ...add more providers here
   ],
+  // secret: process.env.NEXTAUTH_SECRET,
+  // pages: {
+  //   signIn: '/auth/signin',
+  // },
 };
 
 export default NextAuth(authOptions);

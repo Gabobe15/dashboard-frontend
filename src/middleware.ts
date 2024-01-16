@@ -1,4 +1,8 @@
 export { default } from 'next-auth/middleware';
 export const config = {
-  matcher: ['/dashboard', '/pages'],
+  matcher: [
+    '/dashboard/analytics',
+    '/dashboard/profile',
+    '/dashboard/settings',
+  ],
 };

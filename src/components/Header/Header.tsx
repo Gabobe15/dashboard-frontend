@@ -2,19 +2,23 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Tooltip,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
+
 import AdbIcon from '@mui/icons-material/Adb';
 import NextLink from 'next/link';
 
-import { useMediaQuery, useTheme } from '@mui/material';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 export type HeaderProps = {
@@ -23,8 +27,10 @@ export type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { ColorModeContext } = props;
+  const theme = useTheme();
   const { data: session } = useSession();
-  const userProfile = session?.user?.image as string;
+  const userProfileImg = session?.user?.image as string;
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -48,10 +54,9 @@ const Header = (props: HeaderProps) => {
   };
 
   const tabletCheck = useMediaQuery('(min-width: 768px)');
-  const theme = useTheme();
 
   return (
-    <AppBar position="static" sx={{ marginBottom: '40px' }}>
+    <AppBar position="fixed" sx={{ marginBottom: '40px' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -103,12 +108,13 @@ const Header = (props: HeaderProps) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open profile settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Box sx={{ paddingRight: 6 }}>
-                  {/* <Typography>Signed in as {session?.user?.email}</Typography> */}
-                </Box>
-                <Avatar alt={session?.user?.name as string} src={userProfile} />
+                <Avatar
+                  alt={session?.user?.name as string}
+                  src={userProfileImg}
+                />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

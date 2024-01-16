@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import { useSession, signIn, signOut } from 'next-auth/react';
-export default function Component() {
+
+const Login = () => {
   const { data: session } = useSession();
   if (session) {
     return (
@@ -18,4 +19,6 @@ export default function Component() {
       </Button>
     </>
   );
-}
+};
+
+export default Login;
