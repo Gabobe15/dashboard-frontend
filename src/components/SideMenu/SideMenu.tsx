@@ -10,7 +10,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Person2Icon from '@mui/icons-material/Person2';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import { Settings } from '@mui/icons-material';
-// import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from '@mui/icons-material/Home';
 
 import {
   Divider,
@@ -49,9 +49,16 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ['analytics', 'profile', 'settings', ''];
-const menuListTranslations = ['Analytics', 'Profile', 'Settings', 'Sign Out'];
+const menuRouteList = ['', 'analytics', 'profile', 'settings', ''];
+const menuListTranslations = [
+  'Home',
+  'Analytics',
+  'Profile',
+  'Settings',
+  'Sign Out',
+];
 const menuListIcons = [
+  <HomeIcon />,
   <EqualizerIcon />,
   <Person2Icon />,
   <Settings />,

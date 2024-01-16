@@ -9,12 +9,12 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import NextLink from 'next/link';
 
-import { useMediaQuery } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import ThemeToggleButton from '@/components/ThemeToggleButton';
 
 export type HeaderProps = {
@@ -48,6 +48,7 @@ const Header = (props: HeaderProps) => {
   };
 
   const tabletCheck = useMediaQuery('(min-width: 768px)');
+  const theme = useTheme();
 
   return (
     <AppBar position="static" sx={{ marginBottom: '40px' }}>
@@ -124,6 +125,29 @@ const Header = (props: HeaderProps) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              <MenuItem>
+                <NextLink
+                  href={'/dashboard/profile'}
+                  style={{
+                    color: theme.palette.text.primary,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Typography textAlign="center">Profile</Typography>
+                </NextLink>
+              </MenuItem>
+              <MenuItem>
+                <NextLink
+                  href={'/dashboard/settings'}
+                  style={{
+                    color: theme.palette.text.primary,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <Typography textAlign="center">Settings</Typography>
+                </NextLink>
+              </MenuItem>
+
               <MenuItem onClick={() => (session ? signOut() : signIn())}>
                 <Typography textAlign="center">
                   {session ? 'Logout' : 'Login'}
